@@ -1,14 +1,12 @@
 var jeu, i, j;
-var TAILLE_ROND = 20, ESPACEMENT = 3;
+var TAILLE_ROND = 30, ESPACEMENT = 3;
 jeu = [];
-for (i = 0; i < 7; i++) {
+for (i = 0; i < 7; i++) { // on crée une grille vide
   jeu[i] = [];
   for (j = 0; j < 5; j++) {
     jeu[i][j] = '';
-    //if (i == 2) jeu[i][j] = 'X';
   }
 }
-jeu[1][0] = 'X';
 
 function AfficheGrille(jeu) {
   for (i = 0; i < 7; i++) {
@@ -23,25 +21,18 @@ function AfficheGrille(jeu) {
     }
   }
 }
-AfficheGrille(jeu);
 
-function SaisieColonne(jeu) {
-  var colonne, ok, y;
-  colonne = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
-  ok = false;
-  for (y = 0; y < 5; y++) {
-    if (jeu[colonne][y] == '') {
-      ok = true;
-      break;
-    }
+function SaisieColonne(jeu, joueur) {
+  var col, i;
+  col = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
+  if(jeu[col][0] != ''){ return -1; } // la colonne est pleine
+  i = 0;
+  while(jeu[col][i] == '' && i < 4){
+    i++;
   }
-  if (ok) {
-    return y;
-  } else {
-    return -1;
-  }
+  jeu[col][i] = joueur;
+  return i;
 }
-//alert(SaisieColonne(jeu));
 
 function Termine(jeu){
   // Vérification des colonnes
