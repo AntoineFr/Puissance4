@@ -46,5 +46,41 @@ function SaisieColonne(jeu) {
 //alert(SaisieColonne(jeu));
 
 function Termine(jeu){
-  return false;
+  // Vérification des colonnes
+  for(i = 0 ; i < 2 ; i++){ // on fait le test pour les lignes 0 et 1 (il n'y a pas 4 cases en dessous après)
+    for(j = 0 ; j < 7 ; j++){ // chaque colonne
+      cas = jeu[i][j];
+      if(cas != '' && jeu[i+1][j] == cas && jeu[i+2][j] == cas && jeu[i+2][j] == cas){
+        return cas;
+      }
+    }
+  }
+  // Vérification des lignes
+  for(i = 0 ; i < 5 ; i++){ // chaque ligne
+    for(j = 0 ; j < 4 ; j++){ // on fait le test pour les cases 0 à 3
+      cas = jeu[i][j];
+      if(cas != '' && jeu[i][j+1] == cas && jeu[i][j+2] == cas && jeu[i][j+3] == cas){
+        return cas;
+      }
+    }
+  }
+  // Vérification de la diagonale haut gauche -> bas droite
+  for(i = 0 ; i < 2 ; i++){ // on fait le test pour les lignes 0 et 1
+    for(j = 0 ; j < 4 ; j++){ // on fait le test pour les cases 0 à 3
+      cas = jeu[i][j];
+      if(cas != '' && jeu[i+1][j+1] == cas && jeu[i+2][j+2] == cas && jeu[i+3][j+3] == cas){
+        return cas;
+      }
+    }
+  }
+  // Vérification de la diagonale bas gauche -> haut droite
+  for(i = 3 ; i < 5 ; i++){ // on fait le test pour les lignes 3 et 4
+    for(j = 0 ; j < 4 ; j++){ // on fait le test pour les cases 0 à 3
+      cas = jeu[i][j];
+      if(cas != '' && jeu[i-1][j+1] == cas && jeu[i-2][j+2] == cas && jeu[i-3][j+3] == cas){
+        return cas;
+      }
+    }
+  }
+  return '';
 }
