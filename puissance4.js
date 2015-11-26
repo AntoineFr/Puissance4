@@ -12,16 +12,14 @@ jeu[1][0] = 'X';
 
 function AfficheGrille(jeu) {
   for (i = 0; i < 7; i++) {
-    var y = 5;
     for (j = 0; j < 5; j++) {
       if (jeu[i][j] == 'X') {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), y * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
+        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
       } else if (jeu[i][j] == 'O') {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), y * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
+        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
       } else {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), y * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
+        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
       }
-      y--;
     }
   }
 }
