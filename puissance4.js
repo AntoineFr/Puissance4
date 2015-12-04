@@ -17,7 +17,7 @@ function AfficheGrille(jeu) {
 function SaisieColonne(jeu, joueur) {
   var col, i, resultat;
   col = SaisieEntier("Dans quelle colonne voulez-vous jouer (" + joueur + ") ?");
-  if (jeu[0][col] != '') { // la colonne est pleine
+  if (col < 0 || col > 6 || jeu[0][col] != '') { // en dehors ou la colonne est pleine
     return -1;
   }
   resultat = -1;
@@ -35,7 +35,7 @@ function Termine(jeu) {
   for (i = 0; i < 2; i++) { // on fait le test pour les lignes 0 et 1 (il n'y a pas 4 cases en dessous après)
     for (j = 0; j < 7; j++) { // chaque colonne
       cas = jeu[i][j];
-      if (cas != '' && jeu[i + 1][j] == cas && jeu[i + 2][j] == cas && jeu[i + 2][j] == cas) {
+      if (cas != '' && jeu[i + 1][j] == cas && jeu[i + 2][j] == cas && jeu[i + 3][j] == cas) {
         return cas;
       }
     }
