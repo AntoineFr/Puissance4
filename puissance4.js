@@ -1,6 +1,8 @@
-var TAILLE_ROND = 30, ESPACEMENT = 3;
+var TAILLE_ROND = 30,
+ ESPACEMENT = 3;
 
 function AfficheGrille(jeu) {
+  var i, j;
   for (i = 0; i < 5; i++) {
     for (j = 0; j < 7; j++) {
       if (jeu[i][j] == 'X') {
@@ -16,7 +18,16 @@ function AfficheGrille(jeu) {
 
 function SaisieColonne(jeu, joueur) {
   var col, i, resultat;
-  col = SaisieEntier("Dans quelle colonne voulez-vous jouer (" + joueur + ") ?");
+  if (mode == "jcj") { // joueur contre joueur
+    col = SaisieEntier("Dans quelle colonne voulez-vous jouer (" + joueur + ") ?");
+  } else {
+    if (joueur == 'X') {
+      col = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
+    } else {
+      col = Hasard(7) + 1;
+    }
+  }
+  col--;
   if (col < 0 || col > 6 || jeu[0][col] != '') { // en dehors ou la colonne est pleine
     return -1;
   }
@@ -31,6 +42,7 @@ function SaisieColonne(jeu, joueur) {
 }
 
 function Termine(jeu) {
+  var i, j, cas;
   // Vérification des colonnes
   for (i = 0; i < 2; i++) { // on fait le test pour les lignes 0 et 1 (il n'y a pas 4 cases en dessous après)
     for (j = 0; j < 7; j++) { // chaque colonne
@@ -70,9 +82,21 @@ function Termine(jeu) {
   return '';
 }
 
+function Rempli(jeu) {
+  var i, j;
+  for (i = 0; i < 5; i++) {
+    for (j = 0; j < 7; j++) {
+      if (jeu[i][j] == '') {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 // Création d'une grille vide
-var i, j;
 var jeu = [];
+var i, j;
 for (i = 0; i < 5; i++) {
   jeu[i] = [];
   for (j = 0; j < 7; j++) {
@@ -83,21 +107,26 @@ for (i = 0; i < 5; i++) {
 // Boucle de jeu
 var fini = false;
 var joueur = 'X';
+var mode = Saisie("Entrez le mode (jcj, jco)");
 while (!fini) {
   AfficheGrille(jeu);
-  var col = SaisieColonne(jeu, joueur);
-  if (col == -1) {
+  var col = -1;
+  while (col == -1) {
     col = SaisieColonne(jeu, joueur);
-  } else {
-    if (Termine(jeu)) {
-      fini = true;
-      AfficheGrille(jeu);
+  }
+  if (Rempli(jeu)) { // plus aucune case de libre
+    fini = true;
+    AfficheGrille(jeu);
+    Texte(0, 7 * (TAILLE_ROND + ESPACEMENT) + 10, " Egalité !", "black");
+  } else if (Termine(jeu) != '') { // un des joueurs a gagné
+    fini = true;
+    AfficheGrille(jeu);
+    Texte(0, 7 * (TAILLE_ROND + ESPACEMENT) + 10, joueur + " gagne !", "black");
+  } else { // on continue et on inverse les tours
+    if (joueur == 'X') {
+      joueur = 'O';
     } else {
-      if (joueur == 'X') {
-        joueur = 'O';
-      } else {
-        joueur = 'X';
-      }
+      joueur = 'X';
     }
   }
 }
