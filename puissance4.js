@@ -1,14 +1,14 @@
 var TAILLE_ROND = 30, ESPACEMENT = 3;
 
 function AfficheGrille(jeu) {
-  for (i = 0; i < 7; i++) {
-    for (j = 0; j < 5; j++) {
+  for (i = 0; i < 5; i++) {
+    for (j = 0; j < 7; j++) {
       if (jeu[i][j] == 'X') {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
+        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
       } else if (jeu[i][j] == 'O') {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
+        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
       } else {
-        CerclePlein((i + 1) * (TAILLE_ROND + ESPACEMENT), (j + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
+        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
       }
     }
   }
@@ -17,14 +17,14 @@ function AfficheGrille(jeu) {
 function SaisieColonne(jeu, joueur) {
   var col, i;
   col = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
-  if (jeu[col][0] != '') {
+  if (jeu[0][col] != '') { // la colonne est pleine
     return -1;
-  } // la colonne est pleine
+  }
   i = 0;
-  while (jeu[col][i] == '' && i < 4) {
+  while (jeu[i][col] == '' && i < 4) {
     i++;
   }
-  jeu[col][i] = joueur;
+  jeu[i][col] = joueur;
   return i;
 }
 
@@ -71,9 +71,9 @@ function Termine(jeu) {
 // Création d'une grille vide
 var i, j;
 var jeu = [];
-for (i = 0; i < 7; i++) {
+for (i = 0; i < 5; i++) {
   jeu[i] = [];
-  for (j = 0; j < 5; j++) {
+  for (j = 0; j < 7; j++) {
     jeu[i][j] = '';
   }
 }
