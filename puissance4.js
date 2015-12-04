@@ -15,17 +15,18 @@ function AfficheGrille(jeu) {
 }
 
 function SaisieColonne(jeu, joueur) {
-  var col, i;
-  col = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
+  var col, i, resultat;
+  col = SaisieEntier("Dans quelle colonne voulez-vous jouer (" + joueur + ") ?");
   if (jeu[0][col] != '') { // la colonne est pleine
     return -1;
   }
-  i = 0;
-  while (jeu[i][col] == '' && i < 4) {
-    i++;
+  resultat = -1; i = 4;
+  while(resultat == -1 && i >= 0){
+    if (jeu[i][col] == '') resultat = i;
+    i--;
   }
-  jeu[i][col] = joueur;
-  return i;
+  if(resultat != -1) jeu[resultat][col] = joueur;
+  return resultat;
 }
 
 function Termine(jeu) {
@@ -89,6 +90,7 @@ while (!fini) {
   } else {
     if (Termine(jeu)) {
       fini = true;
+      AfficheGrille(jeu);
     } else {
       if (joueur == 'X') {
         joueur = 'O';
