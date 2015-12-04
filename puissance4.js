@@ -20,12 +20,13 @@ function SaisieColonne(jeu, joueur) {
   if (jeu[0][col] != '') { // la colonne est pleine
     return -1;
   }
-  resultat = -1; i = 4;
-  while(resultat == -1 && i >= 0){
+  resultat = -1;
+  i = 4;
+  while (resultat == -1 && i >= 0) {
     if (jeu[i][col] == '') resultat = i;
     i--;
   }
-  if(resultat != -1) jeu[resultat][col] = joueur;
+  if (resultat != -1) jeu[resultat][col] = joueur;
   return resultat;
 }
 
