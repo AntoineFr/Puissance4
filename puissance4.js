@@ -77,3 +77,24 @@ for (i = 0; i < 5; i++) {
     jeu[i][j] = '';
   }
 }
+
+// Boucle de jeu
+var fini = false;
+var joueur = 'X';
+while (!fini) {
+  AfficheGrille(jeu);
+  var col = SaisieColonne(jeu, joueur);
+  if (col == -1) {
+    col = SaisieColonne(jeu, joueur);
+  } else {
+    if (Termine(jeu)) {
+      fini = true;
+    } else {
+      if (joueur == 'X') {
+        joueur = 'O';
+      } else {
+        joueur = 'X';
+      }
+    }
+  }
+}
