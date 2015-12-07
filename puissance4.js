@@ -21,6 +21,7 @@ function SaisieColonne(jeu, joueur) {
   if (mode == "jcj") { // joueur contre joueur
     col = SaisieEntier("Dans quelle colonne voulez-vous jouer [1-7] (" + joueur + ") ?");
   }
+  else if (mode == "oco") { col = Hasard(7) + 1; }
   else { // joueur contre ordinateur
     if (joueur == 'X') {
       col = SaisieEntier("Dans quelle colonne voulez-vous jouer [1-7] ?");
