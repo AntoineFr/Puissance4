@@ -1,16 +1,16 @@
 var TAILLE_ROND = 30,
  ESPACEMENT = 3;
 
-function AfficheGrille(jeu) {
+function AfficheGrille(jeu) { // Affiche la grille de jeu
   var i, j;
   for (i = 0; i < 5; i++) {
     for (j = 0; j < 7; j++) {
       if (jeu[i][j] == 'X') {
-        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
+        CerclePlein(500 + (j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "red");
       } else if (jeu[i][j] == 'O') {
-        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
+        CerclePlein(500 + (j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "yellow");
       } else {
-        CerclePlein((j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
+        CerclePlein(500 + (j + 1) * (TAILLE_ROND + ESPACEMENT), (i + 1) * (TAILLE_ROND + ESPACEMENT), TAILLE_ROND, "black");
       }
     }
   }
@@ -19,21 +19,22 @@ function AfficheGrille(jeu) {
 function SaisieColonne(jeu, joueur) {
   var col, i, resultat;
   if (mode == "jcj") { // joueur contre joueur
-    col = SaisieEntier("Dans quelle colonne voulez-vous jouer (" + joueur + ") ?");
-  } else {
+    col = SaisieEntier("Dans quelle colonne voulez-vous jouer [1-7] (" + joueur + ") ?");
+  }
+  else { // joueur contre ordinateur
     if (joueur == 'X') {
-      col = SaisieEntier("Dans quelle colonne voulez-vous jouer ?");
+      col = SaisieEntier("Dans quelle colonne voulez-vous jouer [1-7] ?");
     } else {
-      col = Hasard(7) + 1;
+      col = Hasard(7) + 1; // Une colonne entre 0 et 6    + 1 pour faire de 1 à 7
     }
   }
-  col--;
+  col--; // car le programme prend une colonne de 0 à 6
   if (col < 0 || col > 6 || jeu[0][col] != '') { // en dehors ou la colonne est pleine
     return -1;
   }
   resultat = -1;
   i = 4;
-  while (resultat == -1 && i >= 0) {
+  while (resultat == -1 && i >= 0) { // recherche de la ligne la plus basse possible
     if (jeu[i][col] == '') resultat = i;
     i--;
   }
@@ -82,7 +83,7 @@ function Termine(jeu) {
   return '';
 }
 
-function Rempli(jeu) {
+function Rempli(jeu) { // Teste si la grille est pleine (égalité)
   var i, j;
   for (i = 0; i < 5; i++) {
     for (j = 0; j < 7; j++) {
@@ -107,21 +108,21 @@ for (i = 0; i < 5; i++) {
 // Boucle de jeu
 var fini = false;
 var joueur = 'X';
-var mode = Saisie("Entrez le mode (jcj, jco)");
+var mode = Saisie("Entrez le mode (jcj, jco) \r\n[joueur contre joueur | joueur contre ordinateur]");
 while (!fini) {
   AfficheGrille(jeu);
   var col = -1;
-  while (col == -1) {
+  while (col == -1) { // placer le jeton dans la colonne
     col = SaisieColonne(jeu, joueur);
   }
   if (Rempli(jeu)) { // plus aucune case de libre
     fini = true;
     AfficheGrille(jeu);
-    Texte(0, 7 * (TAILLE_ROND + ESPACEMENT) + 10, " Egalité !", "black");
+    Texte(500, 7 * (TAILLE_ROND + ESPACEMENT) + 10, " Egalité !", "black");
   } else if (Termine(jeu) != '') { // un des joueurs a gagné
     fini = true;
     AfficheGrille(jeu);
-    Texte(0, 7 * (TAILLE_ROND + ESPACEMENT) + 10, joueur + " gagne !", "black");
+    Texte(500, 7 * (TAILLE_ROND + ESPACEMENT) + 10, joueur + " gagne !", "black");
   } else { // on continue et on inverse les tours
     if (joueur == 'X') {
       joueur = 'O';
